@@ -1,3 +1,4 @@
+TEXTEDITOR="bbedit"
 CLASSES="classes: physics, math"
 NEWOPTS="'new' options: pset"
 OPENOPTS="'open' options: pset, book"
@@ -36,10 +37,10 @@ if [ "$3" == "pset" ]; then
         NUMBER=`ls $FOLDER | grep -c $SUFFIX`
         NUMBER=`expr $NUMBER + 1`
         cp $FOLDER/$TEMPLATE $FOLDER/$DATE-pset-$NUMBER-$SUFFIX
-        bbedit $FOLDER/$DATE-pset-$NUMBER-$SUFFIX
+        $TEXTEDITOR $FOLDER/$DATE-pset-$NUMBER-$SUFFIX
     fi
     if [ "$1" == "open" ]; then
-        bbedit $FOLDER/`ls $FOLDER | grep $SUFFIX | tail -n 1`
+        $TEXTEDITOR $FOLDER/`ls $FOLDER | grep $SUFFIX | tail -n 1`
     fi
     if [ "$1" == "compile" ]; then
         pushd $FOLDER
