@@ -1,4 +1,4 @@
-TEXTEDITOR="bbedit"
+TEXTEDITOR="mate"
 CLASSES="classes: physics, math"
 NEWOPTS="'new' options: pset"
 OPENOPTS="'open' options: pset, book"
@@ -34,8 +34,9 @@ if [ "$3" == "pset" ]; then
     TEMPLATE="template.tex"
     if [ "$1" == "new" ]; then
         DATE=`date +%m%d`
-        NUMBER=`ls $FOLDER | grep -c $SUFFIX`
-        NUMBER=`expr $NUMBER + 1`
+        echo "Most recent physics pset is `ls $FOLDER | grep $SUFFIX | tail -n 1`"
+        echo -n "What number should this pset be? "
+        read NUMBER
         cp $FOLDER/$TEMPLATE $FOLDER/$DATE-pset-$NUMBER-$SUFFIX
         $TEXTEDITOR $FOLDER/$DATE-pset-$NUMBER-$SUFFIX
     fi
