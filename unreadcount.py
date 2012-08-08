@@ -21,4 +21,4 @@ fastmailcount = len(fastmail.search(None,'UnSeen')[1][0].split())
 
 totalcount = gmailcount + fastmailcount
 if (totalcount > 0):
-    print str(totalcount) + " new message" + ("s" if totalcount > 1 else "") + " "
+    print str(totalcount) + " new message" + ("s" if totalcount > 1 else "") + " | "
