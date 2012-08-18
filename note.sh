@@ -3,7 +3,7 @@
 DIR=~/Dropbox/Notes
 EXTENSION=md
 
-if [ $1 == "new" ]; then
+if [ $1 == "new" -o $1 == "add" ]; then
     FILE=`date +%m%d`
     for var in "${@:2}"; do
         FILE="$FILE-$var"
@@ -11,11 +11,11 @@ if [ $1 == "new" ]; then
     $EDITOR "$DIR/$FILE.$EXTENSION"
 fi
 
-if [ $1 == "list" ]; then
+if [ $1 == "list" -o $1 == "ls" ]; then
     ls -tr1 $DIR
 fi
 
-if [ $1 == "edit" ]; then
+if [ $1 == "edit" -o $1 == "open" ]; then
     SEARCH=''
     for var in "${@:2}"; do
         SEARCH="$SEARCH-$var"
