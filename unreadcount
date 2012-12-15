@@ -1,0 +1,6 @@
+COUNT=`ls ~/Dropbox/Mail/Inbox/new | wc -l`
+if [ $COUNT -eq 1 ]; then
+    echo "1 new message | "
+elif [ $COUNT -gt 1 ]; then
+    echo "$COUNT new messages | "
+fi
