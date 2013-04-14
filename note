@@ -1,50 +1,17 @@
 #!/bin/bash
 
 DIR=~/Dropbox/Notes
-EXTENSION=md
+EXTENSION=txt
 
-if [[ $1 == "new" || $1 == "add" ]]; then
-    FILE=`date +%m%d`
-    for var in "${@:2}"; do
-        FILE="$FILE-$var"
-    done
-    $EDITOR "$DIR/$FILE.$EXTENSION"
-fi
-
-if [[ $1 == "list" || $1 == "ls" ]]; then
+if [[ $# -eq 0 ]]; then
     ls -tr1 $DIR
+    exit
 fi
 
-if [[ $1 == "edit" || $1 == "open" ]]; then
-    SEARCH=''
-    for var in "${@:2}"; do
-        SEARCH="$SEARCH-$var"
-    done
-    SEARCH=${SEARCH:1}
-    FILES="`ls -t1 $DIR`"
-    for file in $FILES; do
-        if [[[[ $file == *$SEARCH* ]]]]; then
-            $EDITOR "$DIR/$file"
-            break
-        fi
-    done
+FILE=`find $DIR -iname *"${@:1}"* -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | head -n 1`
+
+if [[ $FILE = "" ]]; then
+    FILE="${@:1}.$EXTENSION"
 fi
 
-if [[ $1 == "cat" || $1 == "print" ]]; then
-    SEARCH=''
-    for var in "${@:2}"; do
-        SEARCH="$SEARCH-$var"
-    done
-    SEARCH=${SEARCH:1}
-    FILES="`ls -t1 $DIR`"
-    for file in $FILES; do
-        if [[[[ $file == *$SEARCH* ]]]]; then
-            cat "$DIR/$file"
-            break
-        fi
-    done
-fi
-
-if [[ $1 == "help" ]]; then
-    echo "usage: note.sh (new | list | edit | cat)"
-fi
+/usr/bin/editor "$FILE"
